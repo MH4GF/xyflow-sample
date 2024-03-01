@@ -6,6 +6,7 @@ import ReactFlow, {
   useReactFlow,
   useStoreApi,
   Node,
+  Background,
 } from "reactflow";
 import { shallow } from "zustand/shallow";
 
@@ -105,6 +106,7 @@ function Flow() {
     >
       <Controls showInteractive={false} />
       <Panel position="top-left">React Flow Mind Map</Panel>
+      <Background />
     </ReactFlow>
   );
 }
