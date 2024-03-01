@@ -24,7 +24,7 @@ const useStore = create<RFStore>((set, get) => ({
     {
       id: "root",
       type: "mindmap",
-      data: { label: "Mind Map" },
+      data: { label: "1" },
       position: { x: 100, y: 100 },
     },
   ],

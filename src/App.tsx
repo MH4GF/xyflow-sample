@@ -7,6 +7,7 @@ import ReactFlow, {
   useStoreApi,
   Node,
   Background,
+  MiniMap,
 } from "reactflow";
 import { shallow } from "zustand/shallow";
 
@@ -15,7 +16,7 @@ import "reactflow/dist/style.css";
 import useStore, { RFStore } from "./store";
 import MindMapNode from "./MindMapNode";
 import MindMapEdge from "./MindMapEdge";
-import { useCallback, useRef } from "react";
+import { useCallback, useMemo, useRef } from "react";
 
 const selector = (state: RFStore) => ({
   nodes: state.nodes,
@@ -93,21 +94,57 @@ function Flow() {
     [addChildNode, getChildNodePosition, store]
   );
 
+  const output = useMemo(
+    () => ({
+      nodes: nodes.map((node) => ({
+        nodeId: node.id,
+        data: {
+          label: node.data.label,
+        },
+      })),
+      edges: edges.map((edge) => ({
+        sourceId: edge.source,
+        targetId: edge.target,
+      })),
+    }),
+    [nodes, edges]
+  );
+
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      nodeTypes={nodeTypes}
-      edgeTypes={edgeTypes}
-      onConnectStart={onConnectStart}
-      onConnectEnd={onConnectEnd}
-    >
-      <Controls showInteractive={false} />
-      <Panel position="top-left">React Flow Mind Map</Panel>
-      <Background />
-    </ReactFlow>
+    <div style={{ width: "100%", height: "100%" }}>
+      <p
+        style={{
+          margin: "10px",
+        }}
+      >
+        {JSON.stringify(output)}
+      </p>
+      <div
+        style={{
+          width: "calc(100% - 20px)",
+          height: "90%",
+          border: "1px solid black",
+          borderRadius: "5px",
+          margin: "10px",
+        }}
+      >
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
+          onConnectStart={onConnectStart}
+          onConnectEnd={onConnectEnd}
+        >
+          <Controls showInteractive={false} />
+          <Panel position="top-left">React Flow Mind Map</Panel>
+          <Background />
+          <MiniMap />
+        </ReactFlow>
+      </div>
+    </div>
   );
 }
 
