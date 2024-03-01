@@ -1,51 +1,35 @@
-import ReactFlow, {
-  Controls,
-  Background,
-  MiniMap,
-  useNodesState,
-  useEdgesState,
-} from 'reactflow';
-
-import 'reactflow/dist/style.css';
-
-const initNodes = [
-  {
-    id: 'a',
-    data: { label: 'Node A' },
-    position: { x: 250, y: 0 },
-  },
-  {
-    id: 'b',
-    data: { label: 'Node B' },
-    position: { x: 100, y: 100 },
-  },
-];
-
-const initEdges = [
-  {
-    id: 'a-b',
-    source: 'a',
-    target: 'b',
-  },
-];
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
 
 function App() {
-  const [nodes, , onNodesChange] = useNodesState(initNodes);
-  const [edges, , onEdgesChange] = useEdgesState(initEdges);
+  const [count, setCount] = useState(0)
 
   return (
-    <ReactFlow
-      nodes={nodes}
-      onNodesChange={onNodesChange}
-      edges={edges}
-      onEdgesChange={onEdgesChange}
-      fitView
-    >
-      <Background />
-      <Controls />
-      <MiniMap />
-    </ReactFlow>
-  );
+    <>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+    </>
+  )
 }
 
-export default App;
+export default App
