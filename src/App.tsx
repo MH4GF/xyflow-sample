@@ -84,7 +84,10 @@ function Flow() {
 
       if (targetIsPane && connectingNodeId.current) {
         const parentNode = nodeInternals.get(connectingNodeId.current);
-        const childNodePosition = getChildNodePosition(event, parentNode);
+        const childNodePosition = getChildNodePosition(
+          event as MouseEvent, // TODO: fix types
+          parentNode
+        );
 
         if (parentNode && childNodePosition) {
           addChildNode(parentNode, childNodePosition);
